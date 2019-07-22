@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- JQuery import -->
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+
+<body>
+
+  <form id="upload-file-form">
+    <label for="upload-file-input">Upload your file:</label>
+    <input id="upload-file-input1" type="file" name="file" />
+    <br />
+    <input id="upload-file-input2" type="file" name="file" />
+    <br />
+    <span id="upload-file-message"></span>
+    <button type="button" class="upload-me" value="upload" />
+  </form>
+  <br />
+  <hr />
+  
+  <!-- Javascript functions -->
+  <script src="js/egna-legna.js"></script>
+  <script>
+  
+    // bind the on-change event for the input element (triggered when a file
+    // is chosen)
+    $(document).ready(function() {
+      $(".upload-me").on("click", uploadFile);
+    });
+    
+    /**
+     * Upload the file sending it via Ajax at the Spring Boot server.
+     */
+    function uploadFile() {
+      var form = $('#upload-file-form')[0];
+      var data = new FormData(form);
+      data.append("CustomField", "This is some extra data, testing");
+      $.ajax({
+        url: url+"/api/files/upload",
+        type: "POST",
+        enctype: 'multipart/form-data',
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function () {
+          // Handle upload success
+          $("#upload-file-message").text("File succesfully uploaded");
+        },
+        error: function () {
+          // Handle upload error
+          $("#upload-file-message").text(
+              "File not uploaded (perhaps it's too much big)");
+        }
+      });
+    } // function uploadFile
+  </script>
+  
+</body>
+
