@@ -241,6 +241,22 @@
             contentType: 'application/json',
             headers: {"Authorization": "Bearer "+localStorage.getItem('auth_token')},
             data: data, 
+             success: function(data) {
+             
+              if (data.success) {
+                //localStorage.setItem('auth_token', data.object.token);
+                console.log(data);
+                $('.da-message').removeClass('alert-danger').addClass('alert-success');
+                $('.da-message').html("Successfully Contributed");
+              }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+      
+              $('.da-message').removeClass('alert-success').addClass('alert-danger');
+              $('.da-message').html(jqXHR.responseText);
+            }
+          })
+        });
            
     </script>
   </body>
