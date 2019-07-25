@@ -267,7 +267,7 @@
             contentType: "application/json",
             headers: {"Authorization": "Bearer "+localStorage.getItem('auth_token')},
             success: function(data) {
-              console.log(data);
+              
               $('#inputFirstName').val(data.object.firstName);
               $('#inputLastName').val(data.object.lastName);
               $('#inputEmail').val(data.object.email);
@@ -286,8 +286,7 @@
             headers: {"Authorization": "Bearer "+localStorage.getItem('auth_token')},
             data: data, 
             success: function(data) {
-              console.log("make it here somehow");
-              console.log(data);
+             
               if (data.success) {
                 //localStorage.setItem('auth_token', data.object.token);
                 $('.donation-message').removeClass('alert-danger').addClass('alert-success');
@@ -304,7 +303,7 @@
             error: function(jqXHR, textStatus, errorThrown) {
               $('.donation-message').removeClass('alert-success').addClass('alert-danger');
               $('.donation-message').html(jqXHR.responseText);
-              console.log(jqXHR);
+             
             }
           })
         });
