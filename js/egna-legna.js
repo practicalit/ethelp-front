@@ -1,4 +1,4 @@
-//var url = "http://localhost:8085";
+
 var url = "https://obscure-oasis-17521.herokuapp.com";
 
 function getURLParams() {
