@@ -273,6 +273,22 @@
           })
         });
         $(".help-request-submit").click(function(){
+          /*
+           * Check if the title and description are provided before
+           * proceeding and wasting resources.
+           */
+          //get the title and description from the UI
+          var title = $.trim($("#inputTitle").val());
+          var description = $.trim($("#inputDescription").val());
+
+          //check if both or either of title/description is provided
+          if (title == '' || description == '') {
+            $('.da-message').html("Can you check if both title and description are provided please?")
+            .addClass('alert-danger');
+
+            //if the validation failed, process no more..
+            return;
+          }
           var categories = "[";
           var i=0;
           $("input:checkbox[name=category]:checked").each(function(){
