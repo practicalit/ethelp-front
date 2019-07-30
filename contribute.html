@@ -231,7 +231,7 @@
         });
         $(".contribution-submit").click(function(){
           var params = getURLParams();
-          var data = '{"contribution":"'+$("#inputContribution").val()+'", ';
+          var data = '{"contribution":"'+$("#inputContribution").val()+'", '; 
           data = data + '"help": {"id":"'+params.id+'"}}';
           
           $.ajax({
