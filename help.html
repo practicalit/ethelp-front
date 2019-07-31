@@ -144,10 +144,8 @@
           <h1>Help</h1>
           <hr>
           <p>Create your cause here. Be precise on what you want and what kind of help you need.</p>
-          <p class="alert da-message"></p>
+          <p class="alert da-message">Please provide the title and description to proceed to post your needs.</p>
         </div>
-
-
 
         <div class="container">
             <div class="card mx-auto ">
@@ -273,8 +271,23 @@
           })
         });
         $(".help-request-submit").click(function(){
+            /*
+           * Check if the title and description are provided before
+           * proceeding and wasting resources.
+           */
+          //get the title and description from the UI
+          var title = $.trim($("#inputTitle").val());
+          var description = $.trim($("#inputDescription").val());
+          //check if both or either of title/description is provided
+          if (title == '' || description == '') {
+            $('.da-message').html("Can you check if both title and description are provided please?")
+            .addClass('alert-danger');
+            //if the validation failed, process no more..
+            return;
+          }
           var categories = "[";
           var i=0;
+        
           $("input:checkbox[name=category]:checked").each(function(){
             if (i==0)
               categories+='{"id":"'+$(this).val()+'"}';
