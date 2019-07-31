@@ -244,7 +244,7 @@
             contentType: 'application/json',
             headers: {"Authorization": "Bearer "+localStorage.getItem('auth_token')},
             success: function(data) {
-              console.log(data);
+              
                 var helps = "";
                 $.each(data.object, function(index, help){
                   helps += "<tr><td><a href='/help-detail.html?id="+help.help.id+"'>" + help.help.title + "</td>";
@@ -254,8 +254,7 @@
                 $('.help-list').html(helps);
             },
             error: function (data) {
-              console.log("make it here somehow in error");
-              console.log(data);
+             
             }
           })
         });
