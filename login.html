@@ -31,13 +31,13 @@
           <form>
             <div class="form-group">
               <div class="form-label-group">
-                <input value="some@some.com" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+                <input value="" type="email" id="inputEmail" class="form-control login-inputs" placeholder="Email address" required="required" autofocus="autofocus">
                 <label for="inputEmail">Email address</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input value="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                <input value="password" type="password" id="inputPassword" class="form-control login-inputs" placeholder="Password" required="required">
                 <label for="inputPassword">Password</label>
               </div>
             </div>
@@ -68,6 +68,24 @@
     <script src="js/egna-legna.js"></script>
     <script>
       $(".login-button").click(function(){
+        //when the button is clicked, handle the login process
+        handleLogin();
+      });
+
+      //both email and password have a marker class login-inputs
+      //when an enter is pressed from either of those, it will handle
+      //as if the button is clicked.
+      $(".login-inputs").keypress(function(event){
+        //when enter key is pressed, handle the login process
+        if (event.keyCode == 13) {
+          handleLogin();
+        }
+      });
+      
+      /**
+       * Function to handle the login page logic
+       */
+      function handleLogin() {
         console.log(url);
         var data = '{"email":"'+$("#inputEmail").val()+'", "password":"'+$("#inputPassword").val()+'"}'; 
         $.ajax({
@@ -77,8 +95,6 @@
           contentType: 'application/json',
           data: data, 
           success: function(data) {
-            console.log("make it here somehow");
-            console.log(data);
             if (data.success) {
               localStorage.setItem('auth_token', data.object.token);
               window.location = "/help-list.html";
@@ -89,7 +105,7 @@
             console.log(data);
           }
         })
-      });
+      }
     </script>
 
   </body>
