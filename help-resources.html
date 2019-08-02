@@ -144,7 +144,7 @@
           <h1>Pictures, Videos, Sound..</h1>
           <hr>
           <p>Upload Pictures Videos or Sound that will support the help post</p>
-          <p class="alert alert-success da-message"></p>
+          <p class="alert da-message"></p>
         </div>
 
 
@@ -215,7 +215,22 @@
           var data = new FormData(form);
           var params = getURLParams();
           data.append("helpId", params.id);
+
+          //at least one file has to be selected to proceed.
+          //check the size and update the boolean file_uploaded
+          var file_uploaded = false;
+          for (var val of data.values()) {
+            if (val.size > 0) {
+              file_uploaded = true;
+              break;
+            }
+          }
           
+          if (!file_uploaded) {
+            $('.da-message').addClass('alert-danger').html('At least one file has to be selected');
+            return;
+          }
+
           $.ajax({
             url: url+"/api/help/resources",
             type: "POST",
@@ -226,8 +241,6 @@
             cache: false,
             data: data, 
             success: function(data) {
-              console.log("make it here in resource");
-              console.log(data);
               if (data.success) {
                 console.log(data);
                 $('.da-message').removeClass('alert-danger').addClass('alert-success');
