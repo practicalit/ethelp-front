@@ -31,13 +31,13 @@
           <form>
             <div class="form-group">
               <div class="form-label-group">
-                <input value="some@some.com" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+                <input value="" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
                 <label for="inputEmail">Email address</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input value="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                <input value="" type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
                 <label for="inputPassword">Password</label>
               </div>
             </div>
@@ -49,6 +49,7 @@
                 </label>
               </div>
             </div>
+            <div class='alert message'></div>
             <button type="button" class="btn btn-primary btn-block login-button">Login</button>
           </form>
           <div class="text-center">
@@ -68,7 +69,16 @@
     <script src="js/egna-legna.js"></script>
     <script>
       $(".login-button").click(function(){
-        console.log(url);
+        //check if email and password are provided before submission
+        var email = $.trim($('#inputEmail').val());
+        var password = $.trim($('#inputPassword').val());
+        if (!email || !password) {
+          //notify the user to provide the user/pass
+          $('.message')
+          .html('Hi, Both Email and Password are required please.')
+          .addClass('alert-danger');
+          return;
+        }
         var data = '{"email":"'+$("#inputEmail").val()+'", "password":"'+$("#inputPassword").val()+'"}'; 
         $.ajax({
           url: url+"/api/member/authenticate",
@@ -77,16 +87,16 @@
           contentType: 'application/json',
           data: data, 
           success: function(data) {
-            console.log("make it here somehow");
-            console.log(data);
             if (data.success) {
               localStorage.setItem('auth_token', data.object.token);
               window.location = "/help-list.html";
+            } else {
+              $('.message')
+              .html("Let's try again, the email/password is not correct")
+              .addClass('alert-danger');
             }
           },
           error: function (data) {
-            console.log("make it here somehow in error");
-            console.log(data);
           }
         })
       });

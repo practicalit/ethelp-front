@@ -312,6 +312,12 @@
           });
           helpTypes+="]";
 
+          if (categories.length <=2 || helpTypes <= 2) {
+            $('.da-message').html("At least one value from category and/or help type has to be selected")
+            .addClass('alert-danger');
+            return;
+          }
+
           var data = '{"title":"'+$("#inputTitle").val()+'", ';
           data = data + '"categories":'+categories+', ';
           data = data + '"helpType":'+helpTypes+', ';
