@@ -307,7 +307,7 @@ img {
           </ol>
 
           <!-- Page Content -->
-          <h1 class="help-detail-title">here</h1>
+          <h1 class="help-detail-title"></h1>
         </div>
 
 
@@ -451,8 +451,6 @@ img {
             contentType: 'application/json',
             headers: {"Authorization": "Bearer "+localStorage.getItem('auth_token')},
             success: function(data) {
-              console.log("make it here somehow");
-              console.log(data);
               $('.help-detail-title').html(data.title);
               $('.help-detail-description').html(data.message);
               
@@ -475,8 +473,6 @@ img {
               pullResources(id);
             },
             error: function (data) {
-              console.log("make it here somehow in error");
-              console.log(data);
               $('.da-message').removeClass('alert-danger').addClass('alert-success');
               $('.da-message').html("Successfully Deposited");
             }
@@ -491,8 +487,6 @@ img {
             contentType: 'application/json',
             headers: {"Authorization": "Bearer "+localStorage.getItem('auth_token')},
             success: function(data) {
-              console.log("make it here somehow");
-              console.log(data);
               var preview = '<div class="tab-pane active" id="pic-1"><img width="400" height="225" src="'+data.object[0].resource.path+'" /></div>';
               var thumbnail = "";
               var i=0;
@@ -507,8 +501,6 @@ img {
               pullComments(id);
             },
             error: function (data) {
-              console.log("make it here somehow in error");
-              console.log(data);
               $('.da-message').removeClass('alert-danger').addClass('alert-success');
               $('.da-message').html("Successfully Deposited");
             }
@@ -523,8 +515,6 @@ img {
             contentType: 'application/json',
             headers: {"Authorization": "Bearer "+localStorage.getItem('auth_token')},
             success: function(data) {
-              console.log("make it here somehow");
-              console.log(data);
               var comment = "";
               $.each(data.object, function (key, value) {
                 comment += commentSegment(value.member.firstName, value.member.lastName, value.comment);
@@ -533,8 +523,6 @@ img {
               $('.help-comments').html(comment);
             },
             error: function (data) {
-              console.log("make it here somehow in error");
-              console.log(data);
               $('.da-message').removeClass('alert-danger').addClass('alert-success');
               $('.da-message').html("Successfully Deposited");
             }
@@ -558,8 +546,6 @@ img {
               $('.help-comment').html('');
             },
             error: function(data) {
-              console.log("error while sending comment");
-              console.log(data);
             }
           });
         });
